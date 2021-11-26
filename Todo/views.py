@@ -1,6 +1,9 @@
+from datetime import time
+
 from django.shortcuts import render, redirect
 from .models import Todo
 from .forms import TaskForm
+from datetime import datetime
 
 
 def index(request):
@@ -16,6 +19,8 @@ def update(request, id):
     form = TaskForm(request.POST or None, instance=task)
     if form.is_valid():
         form.save()
+        task.updated_at = datetime.now()
+        task.save()
         return redirect('index')
     return render(request, 'Todo/update.html', {'form': form})
 

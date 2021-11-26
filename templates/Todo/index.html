@@ -12,19 +12,27 @@
             <div class="task row border border-1 bg-white">
                 <div class="col-md-6 text-start">
                     <p class="fw-bold m-0">{{ task.task_name }}</p>
-                    <p class="created-at">Created at: {{ task.created_at }}</p>
+                    <p class="created-at {% if task.updated_at > task.created_at %} m-0 {% endif %}">Created
+                        at: {{ task.created_at }}</p>
+                    {% if task.updated_at > task.created_at %}
+                        <p class="created-at mt-0">Edited at: {{ task.updated_at }}</p>
+                    {% endif %}
                 </div>
+
                 <div class="col-md-6 text-md-end text-start">
                     <a class="btn btn-success btn-sm" href="{% url 'complete_task' task.id %}">Completed</a>
                     <a class="btn btn-primary btn-sm" href="{% url 'update' task.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm"  href="{% url 'delete' task.id %}">Delete</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'delete' task.id %}">Delete</a>
                 </div>
             </div>
         {% elif task.completed %}
             <div class="completed task row border border-1">
                 <div class="col-md-6 text-start">
                     <p class="fw-bold m-0 text-decoration-line-through">{{ task.task_name }}</p>
-                    <p class="created-at text-decoration-line-through">{{ task.created_at }}</p>
+                    <p class="created-at text-decoration-line-through {% if task.updated_at > task.created_at %} m-0 {% endif %}">Created at:{{ task.created_at }}</p>
+                    {% if task.updated_at > task.created_at %}
+                        <p class="created-at mt-0 text-decoration-line-through">Edited at: {{ task.updated_at }}</p>
+                    {% endif %}
                 </div>
                 <div class="col-md-6 text-md-end text-start">
                     <a class="btn btn-primary btn-sm" href="{% url 'update' task.id %}">Update</a>
