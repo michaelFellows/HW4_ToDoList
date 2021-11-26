@@ -1,0 +1,26 @@
+body{
+    background-color: #fafafa;
+}
+
+.task{
+    border-radius: .25rem;
+    margin: 10px;
+    padding: 10px;
+}
+
+.completed{
+    background-color: #eeeeee;
+}
+
+.delete{
+    color: #fe6993;
+    background-color: rgba(254,105,147,0.1);
+    border-radius: 3px;
+    padding: 0.2em;
+    line-height: 2em;
+}
+
+.created-at{
+    font-size: .7rem;
+    color: gray;
+}

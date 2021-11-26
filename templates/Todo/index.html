@@ -1,0 +1,36 @@
+{% extends 'Todo/base.html' %}
+{% block content %}
+    <h3 class="text-success">{{ message }}</h3>
+    <form class="input-group mb-3" action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="text" name="todo" placeholder="Add tasks">
+        <button class="btn btn-primary" type="submit" id="button-addon2">ADD</button>
+    </form>
+    {% for task in tasks %}
+        {% csrf_token %}
+        {% if not task.completed %}
+            <div class="task row border border-1 bg-white">
+                <div class="col-md-6 text-start">
+                    <p class="fw-bold m-0">{{ task.task_name }}</p>
+                    <p class="created-at">Created at: {{ task.created_at }}</p>
+                </div>
+                <div class="col-md-6 text-md-end text-start">
+                    <a class="btn btn-success btn-sm" href="{% url 'complete_task' task.id %}">Completed</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'update' task.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm"  href="{% url 'delete' task.id %}">Delete</a>
+                </div>
+            </div>
+        {% elif task.completed %}
+            <div class="completed task row border border-1">
+                <div class="col-md-6 text-start">
+                    <p class="fw-bold m-0 text-decoration-line-through">{{ task.task_name }}</p>
+                    <p class="created-at text-decoration-line-through">{{ task.created_at }}</p>
+                </div>
+                <div class="col-md-6 text-md-end text-start">
+                    <a class="btn btn-primary btn-sm" href="{% url 'update' task.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'delete' task.id %}">Delete</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
